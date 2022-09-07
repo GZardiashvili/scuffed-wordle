@@ -1,15 +1,22 @@
 'use strict';
 
 let wordList = [
-  // 'patio', 'darts', 'piano',
+  'patio',
+  'darts',
+  'piano',
   'horse',
+  'hello',
+  'water',
+  'pizza',
+  'sushi',
+  'crabs',
 ];
 
 let randomIndex = Math.floor(Math.random() * wordList.length);
 let secret = wordList[randomIndex];
 
 let currentAttempt = '';
-let history = ['rohan', 'wowzy', 'horse'];
+let history = [];
 
 let grid = document.getElementById('grid');
 buildGrid();
@@ -20,9 +27,20 @@ function handleKeyDown(e) {
   if (e.key === 'Backspace') {
     currentAttempt = currentAttempt.slice(0, -1);
   } else if (e.key === 'Enter') {
+    if (currentAttempt.length < 5) {
+      return;
+    }
+    if (!wordList.includes(currentAttempt)) {
+      alert('Not in my thesaurus');
+      return;
+    }
     history.push(currentAttempt);
     currentAttempt = '';
-  } else if (currentAttempt.length < 5) {
+  } else if (
+    currentAttempt.length < 5 &&
+    e.key.length === 1 &&
+    e.key.match(/[a-z]/)
+  ) {
     currentAttempt += e.key;
   }
   updateGrid();
