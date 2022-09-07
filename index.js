@@ -25,8 +25,8 @@ let wordList = [
 let randomIndex = Math.floor(Math.random() * wordList.length);
 let secret = wordList[randomIndex];
 
-let attempts = ['rohan', 'wowzy'];
-let currentAttempt = '';
+let attempts = ['rohan', 'wowzy', 'horse'];
+let currentAttempt = 'horse';
 
 updateGrid();
 
@@ -42,7 +42,12 @@ function updateGrid() {
 function drawPastAttempt(row, attempt) {
   for (let i = 0; i < 5; i++) {
     let cell = row.children[i];
-    cell.textContent = attempt[i];
+    if (attempt[i] !== undefined) {
+      cell.textContent = attempt[i];
+    } else {
+      // lol
+      cell.innerHTML = '&nbsp;';
+    }
     cell.style.backgroundColor = getBgColor(attempt, i);
   }
 }
@@ -50,7 +55,13 @@ function drawPastAttempt(row, attempt) {
 function drawCurrentAttempt(row, attempt) {
   for (let i = 0; i < 5; i++) {
     let cell = row.children[i];
-    cell.textContent = attempt[i] || '';
+    if (attempt[i] !== undefined) {
+      cell.textContent = attempt[i];
+    } else {
+      // lol
+      cell.innerHTML = '&nbsp;';
+    }
+    cell.style.backgroundColor = '#111';
   }
 }
 
@@ -58,7 +69,7 @@ function getBgColor(attempt, i) {
   let corrctLetter = secret[i];
   let attemptLetter = attempt[i];
   if (attemptLetter === undefined || secret.indexOf(attemptLetter) === -1) {
-    return;
+    return '#212121';
   }
   if (attemptLetter === corrctLetter) {
     return '#538d4e';
