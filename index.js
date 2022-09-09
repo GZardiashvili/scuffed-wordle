@@ -22,9 +22,13 @@ function handleKeyDown(e) {
   if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
     return;
   }
-  if (e.key === 'Backspace') {
+  handleKey(e.key);
+}
+
+function handleKey(key) {
+  if (key === 'Backspace') {
     currentAttempt = currentAttempt.slice(0, -1);
-  } else if (e.key === 'Enter') {
+  } else if (key === 'Enter') {
     if (currentAttempt.length < 5) {
       return;
     }
@@ -36,10 +40,10 @@ function handleKeyDown(e) {
     currentAttempt = '';
   } else if (
     currentAttempt.length < 5 &&
-    e.key.length === 1 &&
-    e.key.match(/[a-z]/)
+    key.length === 1 &&
+    key.match(/[a-z]/)
   ) {
-    currentAttempt += e.key;
+    currentAttempt += key;
   }
   updateGrid();
 }
@@ -114,9 +118,8 @@ function buildKeyboardRow(letters, isLastRow) {
     button.className = 'button';
     button.textContent = 'Enter';
     button.style.backgroundColor = LIGHTGREY;
-    button.onClick = () => {
-      // currentAttempt += letter;
-      // updateGrid();
+    button.onclick = () => {
+      handleKey('Enter');
     };
     row.appendChild(button);
   }
@@ -125,9 +128,8 @@ function buildKeyboardRow(letters, isLastRow) {
     button.className = 'button';
     button.textContent = letter;
     button.style.backgroundColor = LIGHTGREY;
-    button.onClick = () => {
-      // currentAttempt += letter;
-      // updateGrid();
+    button.onclick = () => {
+      handleKey(letter);
     };
     row.appendChild(button);
   }
@@ -136,9 +138,8 @@ function buildKeyboardRow(letters, isLastRow) {
     button.className = 'button';
     button.textContent = 'Backspace';
     button.style.backgroundColor = LIGHTGREY;
-    button.onClick = () => {
-      // currentAttempt += letter;
-      // updateGrid();
+    button.onclick = () => {
+      handleKey('Backspace');
     };
     row.appendChild(button);
   }
